@@ -18,6 +18,7 @@ import { ClothesService } from '../services/clothes.service';
 export class ModifyArticleComponent implements OnInit {
   @Input() article: Clothes;
   types: ClothesType[];
+  colours: string[];
 
   // Get the DOM element with #articleForm (id="articleForm")
   @ViewChild('articleForm') articleForm: HTMLFormElement;
@@ -32,6 +33,7 @@ export class ModifyArticleComponent implements OnInit {
 
     // Get info from service
     this.types = this.clothesService.getClothesTypes();
+    this.colours = this.clothesService.getColours();
 
     // If no article is defined yet, instantiate a new one.
     if (!this.article) {

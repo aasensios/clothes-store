@@ -3,24 +3,27 @@
     <table class="table table-bordered">
       <tr>
         <td>Filter by price:</td>
-        <td><input type="range" min="0" max="100" /> -- {{priceFilter}}</td>
+        <td><input type="range" min="0" max="100" name="priceFilter" [(ngModel)]="priceFilter"
+            (change)="filter()">{{ priceFilter }}</td>
       </tr>
       <tr>
         <td>Filter by colour:</td>
         <td>
-          <select></select>
+          <select class="form-control custom-select" id="colourFilter" name="colourFilter" #colour="ngModel" [(ngModel)]="colourFilter"
+            required>
+            <option *ngFor="let colour of colours" [value]="colour">{{ colour }}</option>
+          </select>
         </td>
       </tr>
       <tr>
-        <td>Items per page: </td>
+        <td>Items per page:</td>
         <td>
-          <input type="text">
+          <input type="number" name="itemsPerPage" [(ngModel)]="itemsPerPage">
         </td>
       </tr>
-
       <tr>
         <td>Number of articles:</td>
-        <td></td>
+        <td>{{ articlesFiltered.length }}</td>
       </tr>
     </table>
   </div>
@@ -31,6 +34,9 @@
 
     <form>
       <h2>Articles found:</h2>
+
+      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true"></pagination-controls>
+
       <table class="table table-bordered">
         <tr>
           <td><b>Article type</b></td>
@@ -40,8 +46,18 @@
           <td><b>Eliminate</b></td>
           <td><b>Go to detail</b></td>
         </tr>
+        <tr *ngFor="let article of articlesFiltered | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage}; let i = index"
+            (click)="onSelect(article)">
+              <td>{{ article.clothesType.type }}</td>
+              <td>{{ article.colour }}</td>
+              <td>{{ article.expeditionDate }}</td>
+              <td>{{ article.price | currency: 'EUR' }}</td>
+              <td><button class="btn btn-danger" (click)="deleteArticle()">X</button></td>
+              <td><button class="btn btn-primary">Go to detail</button></td>
+            </tr>
       </table>
 
+      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true"></pagination-controls>
 
     </form>
   </div>
