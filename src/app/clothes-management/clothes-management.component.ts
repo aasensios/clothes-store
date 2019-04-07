@@ -38,6 +38,7 @@ export class ClothesManagementComponent implements OnInit {
   ngOnInit() {
     // Get the list from service
     this.colours = this.clothesService.getColours();
+    this.colours.push('ALL');
 
     // Modify the number as convenience
     this.generateRandomArticles(50);
@@ -95,8 +96,17 @@ export class ClothesManagementComponent implements OnInit {
       // Anonimous function as a parameter
       article => {
         let priceValid = false;
+        let colourValid = false;
         priceValid = article.price <= this.priceFilter;
-        return (priceValid);
+
+        // Check possible errors: undefined (null) or empty string
+        if (this.colourFilter && this.colourFilter !== 'ALL') {
+          colourValid = article.colour.toLowerCase() === this.colourFilter.toLowerCase();
+        } else {
+          colourValid = true;
+        }
+
+        return (priceValid && colourValid);
       }
     );
   }
@@ -113,8 +123,9 @@ export class ClothesManagementComponent implements OnInit {
    * Deletes the selected article.
    * @param article selected article object
    */
-  deleteArticle(article: Clothes) {
+  delete(article: Clothes) {
     this.articles.splice(this.articles.indexOf(article));
+    console.log(this.articles.length);
   }
 
 }

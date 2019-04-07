@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClothesManagementComponent } from './clothes-management/clothes-management.component';
-import { ModifyArticleComponent } from './modify-article/modify-article.component';
+import { ArticleComponent } from './article/article.component';
 import { NewArticleComponent } from './new-article/new-article.component';
 
 // Forms
@@ -20,7 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   declarations: [
     AppComponent,
     ClothesManagementComponent,
-    ModifyArticleComponent,
+    ArticleComponent,
     NewArticleComponent,
     GreaterThanZeroDirective
   ],

@@ -9,8 +9,7 @@
       <tr>
         <td>Filter by colour:</td>
         <td>
-          <select class="form-control custom-select" id="colourFilter" name="colourFilter" #colour="ngModel" [(ngModel)]="colourFilter"
-            required>
+          <select name="colourFilter" #colour="ngModel" [(ngModel)]="colourFilter" (change)="filter()">
             <option *ngFor="let colour of colours" [value]="colour">{{ colour }}</option>
           </select>
         </td>
@@ -27,16 +26,15 @@
       </tr>
     </table>
   </div>
-  <div>
+
+  <div *ngIf="articlesFiltered.length == 0">
     <h2>No articles found</h2>
   </div>
-  <div>
-
+  <div *ngIf="articlesFiltered.length > 0">
     <form>
       <h2>Articles found:</h2>
-
-      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true"></pagination-controls>
-
+      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true">
+      </pagination-controls>
       <table class="table table-bordered">
         <tr>
           <td><b>Article type</b></td>
@@ -46,19 +44,19 @@
           <td><b>Eliminate</b></td>
           <td><b>Go to detail</b></td>
         </tr>
-        <tr *ngFor="let article of articlesFiltered | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage}; let i = index"
-            (click)="onSelect(article)">
-              <td>{{ article.clothesType.type }}</td>
-              <td>{{ article.colour }}</td>
-              <td>{{ article.expeditionDate }}</td>
-              <td>{{ article.price | currency: 'EUR' }}</td>
-              <td><button class="btn btn-danger" (click)="deleteArticle()">X</button></td>
-              <td><button class="btn btn-primary">Go to detail</button></td>
-            </tr>
+        <tr
+          *ngFor="let article of articlesFiltered | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage}; let i = index"
+          (click)="onSelect(article)">
+          <td>{{ article.clothesType.type }}</td>
+          <td>{{ article.colour }}</td>
+          <td>{{ article.expeditionDate }}</td>
+          <td>{{ article.price | currency: 'EUR' }}</td>
+          <td><button class="btn btn-danger" (click)="delete(article)">X</button></td>
+          <td><button class="btn btn-primary">Go to detail</button></td>
+        </tr>
       </table>
-
-      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true"></pagination-controls>
-
+      <pagination-controls (pageChange)="currentPage=$event" max-size="5" directionLinks="true" autoHide="true">
+      </pagination-controls>
     </form>
   </div>
 </div>

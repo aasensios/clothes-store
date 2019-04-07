@@ -28,6 +28,6 @@ export class GreaterThanZeroDirective implements Validator {
       }
     }
 
-    return validInput ? null : { lessThanZero: true };
+    return validInput ? null : { zeroOrLess: true };
   }
 }

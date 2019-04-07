@@ -15,7 +15,7 @@ import { ClothesService } from '../services/clothes.service';
   templateUrl: './modify-article.component.html',
   styleUrls: ['./modify-article.component.css']
 })
-export class ModifyArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit {
   @Input() article: Clothes;
   types: ClothesType[];
   colours: string[];
