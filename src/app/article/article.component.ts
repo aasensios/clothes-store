@@ -11,9 +11,9 @@ import { ClothesService } from '../services/clothes.service';
  * @version 2019-04-05
  */
 @Component({
-  selector: 'app-modify-article',
-  templateUrl: './modify-article.component.html',
-  styleUrls: ['./modify-article.component.css']
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
   @Input() article: Clothes;
